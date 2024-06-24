@@ -25,6 +25,16 @@ void addFirst(Node *&head, int x){
   p->next=head;
   head=p;
 }
+void addLast(Node *&head, int x){
+  Node *p=createNode(x);
+  //xac dinh vi tri con tro last 
+  Node *last=head;
+  while(last->next!=NULL){
+    last=last->next;
+  }
+  //chen vao cuoi
+  last->next=p;
+}
 //duyet Node
 void xuatNode(Node *head){
   Node *danh_dau=head;
@@ -33,6 +43,10 @@ void xuatNode(Node *head){
     danh_dau=danh_dau->next;
   }
 }
+void del(Node* n){
+  delete n;
+  n=nullptr;
+}
 int main() 
 {
     Node *head;
@@ -40,6 +54,7 @@ int main()
     addFirst(head,10);
     addFirst(head,20);
     addFirst(head,30);
+    addLast(head,5);
     xuatNode(head);
     return 0;
 }
