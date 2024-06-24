@@ -27,10 +27,10 @@ void addFirst(Node *&head, int x){
 }
 //duyet Node
 void xuatNode(Node *head){
-  Node *p=head;
-  while(p!=NULL){
-    cout << p->data << "\t";
-    p=p->next;
+  Node *danh_dau=head;
+  while(danh_dau!=NULL){
+    cout << danh_dau->data << "\t";
+    danh_dau=danh_dau->next;
   }
 }
 int main() 
