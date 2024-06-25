@@ -11,6 +11,10 @@ void nhapPS(Phanso &ps) {
 	cin >> ps.tu;
 	cout << "Nhap mau so: ";
 	cin >> ps.mau;
+	while (ps.mau == 0) {
+		cout << "Nhap lai mau so: ";
+		cin >> ps.mau;
+	}
 
 }
 
