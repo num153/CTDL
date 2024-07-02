@@ -35,6 +35,18 @@ void addLast(Node *&head, int x){
   //chen vao cuoi
   last->next=p;
 }
+void addAfter(Node*head,int vt,int x){
+  Node*p=createNode(x);
+  //tim node co gia tri vt
+  Node*q=head;
+  while(q!=NULL&&q->data!=vt){
+    q=q->next;
+  }
+  if(q!=NULL){
+    p->next=q->next;
+    q->next=p;
+  }
+}
 //duyet Node
 void xuatNode(Node *head){
   Node *danh_dau=head;
@@ -42,6 +54,13 @@ void xuatNode(Node *head){
     cout << danh_dau->data << "\t";
     danh_dau=danh_dau->next;
   }
+}
+//tim kiem
+Node* search(Node*head,int x){
+  Node* p= head;
+  while(p!=NULL && p->data!=x){
+    p=p->next;
+  }return p;
 }
 void del(Node* n){
   delete n;
@@ -55,6 +74,9 @@ int main()
     addFirst(head,20);
     addFirst(head,30);
     addLast(head,5);
+    addAfter(head,30,400);
     xuatNode(head);
+    Node *p = search(head,30);
+    cout << "\nVi tri cua 30: " << p;
     return 0;
 }
