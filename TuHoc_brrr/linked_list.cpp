@@ -66,7 +66,7 @@ void delLast(Node *&head){
     }
     //xoa
     if(prev == NULL){ //Neu node chi co 1 phan tu
-      delFirst(last);
+      delFirst(head); //phai delete node head chu k phai delete con tro last
     }
     else{
     prev->next=NULL;
@@ -83,7 +83,7 @@ void delNode(Node* &head,int val){
       p=p->next;
     }
     if(prev == NULL){ //neu Node chi co 1 phan tu
-      delFirst(p);
+      delFirst(head);
     }
     else{
       prev->next=p->next;
