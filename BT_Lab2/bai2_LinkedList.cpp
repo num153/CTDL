@@ -27,32 +27,6 @@ bool isEmpty(Node*head) {
 		return false;
 	}
 }
-/*========THEM XOA========*/
-void addFirst(Node *&head, int val) {
-	Node *p = createNode(val);
-	p->next = head;
-	head = p;
-}
-//void delLast(Node*&head) {
-//	Node *p = head;
-//	while (!isEmpty && p->next!=NULL)
-//	{
-//		p = p->next;
-//	}
-//	if (p->next == NULL) {
-//		delete p;
-//		p = nullptr;
-//		return;
-//	}
-//}
-void delFirst(Node *&head) {
-	Node *p = head;
-	if (!isEmpty(p)) {
-		head = p->next;
-		p->next = NULL;
-		delete p;
-	}
-}
 /*========DUYET XUAT========*/
 void xuatNode(Node*head) {
 	Node* flag = head;
@@ -68,25 +42,84 @@ Node* searchNode(Node*head, int x) {
 	}
 	return p;
 }
-
+/*========THEM XOA========*/
+void addFirst(Node *&head, int val) {
+	Node *p = createNode(val);
+	p->next = head;
+	head = p;
+}
+void addLast(Node *&head,int val){
+  Node*p=createNode(val);
+  Node*last=head;
+  while(last->next!=NULL){
+    last=last->next;
+  }
+  last->next=p;
+}
+void delFirst(Node *&head) {
+	Node *p = head;
+	if (!isEmpty(p)) {
+		head = p->next;
+		p->next = NULL;
+		delete p;
+	}
+}
+void delLast(Node*&head){
+  if(head!=NULL){
+      Node*last=head;
+      Node*prev=NULL;
+    //xac dinh con tro last va prev
+    while(last->next!=NULL){
+    prev=last;
+    last=last->next;
+    }
+    if(prev==NULL){ //Neu node chi co 1 phan tu
+    delFirst(head);
+    }
+    else{
+    //con neu hai phan tu thi xoa last
+    prev->next=NULL;
+    delete last;
+    }
+  }
+}
+void findAndDel(Node* &head,int val){
+  if(head !=NULL){
+    Node *p=head;
+    Node *prev=NULL;
+    while(p != NULL && p->data != val){ //chu y ktra khi p chay den cuoi co val can tim hay khong
+      prev=p;
+      p=p->next;
+    }
+    //kiem tra xem co gia tri can xoa khong
+    if (p == NULL) {
+            cout << "Gia tri " << val << " khong tim thay trong list." << endl;
+            return;
+        }
+    if(prev == NULL){ //neu Node chi co 1 phan tu
+      delFirst(head);
+    }
+    else{
+      prev->next=p->next;
+      p->next=NULL;
+      delete p;  
+    }
+  }
+}
 int main() {
 	Node *head;
 	init(head);
 	addFirst(head, 10);
 	addFirst(head, 20);
+	addLast(head,99);
 	xuatNode(head);
 	Node*search = searchNode(head, 20);
-	cout << "Vi tri cua 20: " << search << endl;
-	delLast(head);
+	cout << "\nVi tri cua 20: " << search << endl;
+  findAndDel(head,100);
 	xuatNode(head);
 	free(head);
 	system("pause");
 	return 0;
 }
-//Quản lý một danh sách có số phần tử khá lớn, biến động.Mỗi phần tử có kiểu int.
-//(Dùng cấu trúc Danh sách liên kết)
 
-//g.Viết thủ tục thêm một phần tử vào cuối danh sách.
-//h.Viết thủ tục xoá phần tử cuối danh sách.
-//i.Viết thủ tục tìm một phần tử trong danh sách.Nếu tìm thấy, hãy xoá phần tử này.
 //j.Từ danh sách trên chuyển thành danh sách có thứ tự. (*)
