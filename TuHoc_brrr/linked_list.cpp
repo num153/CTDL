@@ -19,6 +19,14 @@ Node* createNode(int x){
   p->next=NULL;
   return p;
 }
+//=========GIAI PHONG NODE=========
+void free(Node*& head) {
+	while (head != NULL) {
+		Node* temp = head;
+		head = head->next;
+		delete temp;
+	}
+}
 //=========CAC THAO TAC=========
 void addFirst(Node *&head, int x){
   Node *p=createNode(x);
@@ -114,11 +122,6 @@ Node* search(Node*head,int x){
   while(p!=NULL && p->data!=x){
     p=p->next;
   }return p;
-}
-//=========GIAI PHONG NODE=========
-void del(Node* n){
-  delete n;
-  n=nullptr;
 }
 int main() 
 {
