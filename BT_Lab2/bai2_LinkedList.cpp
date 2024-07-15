@@ -14,9 +14,12 @@ Node *createNode(int x) {
 	p->next = NULL;
 	return p;
 }
-void free(Node* head) {
-	delete head;
-	head = nullptr;
+void free(Node*& head) {
+	while (head != NULL) {
+		Node* temp = head;
+		head = head->next;
+		delete temp;
+	}
 }
 bool isEmpty(Node*head) {
 	if (head == NULL) {
