@@ -1,4 +1,8 @@
-/* Bai nay chu y cau truc Find to Del/Add boi vi phai xet vi tri head/tail */
+/* 
+Bai nay chu y cau truc 
+Find to Del/Add boi vi phai xet vi tri 
+head/tail 
+*/
 #include <iostream>
 #include <string>
 using namespace std;
