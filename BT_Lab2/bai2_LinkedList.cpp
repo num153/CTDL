@@ -1,3 +1,6 @@
+/*
+ Chu y truong hop addLast rong
+*/
 #include <iostream>
 using namespace std;
 /*========DINH NGHIA NODE========*/
@@ -53,16 +56,15 @@ void addFirst(Node*& head, int val) {
 }
 void addLast(Node*& head, int val) {
 	Node* p = createNode(val);
-	//neu nhu list rong
-	if (head == NULL) {
-		head = p;
-	}
-	else {
+	if (head != NULL) {
 		Node* last = head;
 		while (last->next != NULL) {
 				last = last->next;
 		}
 		last->next = p;
+	}
+	else {
+		head = p; //neu nhu list rong
 	}
 }
 void delFirst(Node*& head) {
