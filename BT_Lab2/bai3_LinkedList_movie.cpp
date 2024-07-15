@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
+/* Khai bao cau truc Node */
 struct Movie {
 	string name;
 	string genre;
@@ -28,6 +28,7 @@ Node* createNode(Movie mv) {
 	p-> next = NULL;
 	return p;
 }
+/* ADD */
 void addLast(Node*& head, Movie mv) {
 	Node* p = createNode(mv);
 	if (head != NULL) {
@@ -42,6 +43,12 @@ void addLast(Node*& head, Movie mv) {
 		head = p;
 	}
 }
+void addFirst(Node*& head, Movie mv) {
+	Node* p = createNode(mv);
+	p->next = head;
+	head = p;
+}
+/* NHAP VA XUAT DANH SACH PHIM */
 void nhapMovie(Movie &mv) {
 	cout << "Ten phim: "; getline(cin, mv.name);
 	cout << "The loai: "; getline(cin, mv.genre);
@@ -74,11 +81,7 @@ void xuatNode(Node* head) {
 		i++;
 	}
 }
-void addFirst(Node*& head, Movie mv) {
-	Node* p = createNode(mv);
-	p->next = head;
-	head = p;
-}
+/* TIM KIEM PHIM */
 bool checkList(string a, string b) {
 	return a == b;
 }
