@@ -100,7 +100,7 @@ void findAndDel(Node* &head,int val){
             return;
         }
     if(prev == NULL){ //neu Node chi co 1 phan tu
-      delFirst(head);
+      delFirst(head); //chu y xoa head chu khong phai xoa con tro p nhe <3
     }
     else{
       prev->next=p->next;
