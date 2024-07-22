@@ -1,3 +1,6 @@
+/*
+  Chu y case khi BST khong co node nao
+*/
 #include <iostream>
 using namespace std;
 
