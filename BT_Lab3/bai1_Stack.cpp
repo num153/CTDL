@@ -52,11 +52,21 @@ void popStack(Stack& s) {
 		delete p;
 	}
 }
-
+//CHUYEN DOI HE 10 SANG HE 2
+void convert10_2(Stack &s,int val) {
+		while (val != 0) {
+			int x = val % 2;
+			pushStack(s, x);
+			val = val / 2;
+		}
+	outputStack(s);
+}
 int main() {
 	Stack s1;
+	Stack s2;
 	int chon;
 	init(s1);
+	init(s2);
 	cout << "STACK: ";
 	pushStack(s1, 20);
 	pushStack(s1, 10);
@@ -68,6 +78,7 @@ int main() {
 		cout << "\t1.Chi hien thi phan tu dau Stack\n";
 		cout << "\t2.Xoa phan tu trong Stack\n";
 		cout << "\t3.Hien thi phan tu\n";
+		cout << "\t4.Chuyen doi he 10 sang 2\n";
 		cout << "\t0.Ket thuc\n";
 		cout << "\n\t\t======END======\n";
 		cout << "Lua chon: "; cin >> chon;
@@ -80,6 +91,9 @@ int main() {
 			break;
 		case 3:
 			outputStack(s1);
+			break;
+		case 4:
+			convert10_2(s2, 10);
 			break;
 		}
 	} while (chon != 0);
