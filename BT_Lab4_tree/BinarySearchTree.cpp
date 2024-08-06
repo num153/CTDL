@@ -1,5 +1,5 @@
 /*
-	Chu y de quy sum/count (return 0)
+	Chu y de quy sum (return 0)
 	Ham xoa co 3 case
 	Thu tu left right cua ham findRepNode
 */
