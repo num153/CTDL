@@ -1,3 +1,6 @@
+/* 
+    ouput: chu y khi duyet khong dung flag-next de so sanh, vi den phan tu cuoi cung no se dung lai (thieu)
+*/
 #include <iostream>
 using namespace std;
 /*========DINH NGHIA NODE========*/
