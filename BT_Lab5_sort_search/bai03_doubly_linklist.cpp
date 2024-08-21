@@ -50,20 +50,64 @@ void addLast(DoubleLL &ll, int val) {
 	}
 }
 void delFirst(DoubleLL &ll) {
-	if (!isEmpty(ll)) {
-		Node *temp = ll.head;
-		if (temp->next == NULL) {
-			ll.head = NULL;
-			ll.tail = NULL;
-		}
-		else
-		{
-			ll.head = temp->next;
-			temp->next->prev = NULL;
-			temp->next = NULL;
-		}
-		delete temp;
+	if(!isEmpty(ll)){
+	    Node* temp = ll.head;
+	    if(temp->next == NULL){
+	        ll.head = NULL;
+	        ll.tail = NULL;
+	    }else{
+	        ll.head = temp->next;
+	        temp->next->prev = NULL;
+	        temp->next = NULL;
+	    }
+	    delete temp;
 	}
+}
+void delLast(DoubleLL &ll){
+    if(!isEmpty(ll)){
+        Node* temp = ll.tail;
+        if(temp->prev == NULL){
+            ll.head = NULL;
+            ll.tail = NULL;
+        }else{
+            ll.tail = temp->prev;
+            temp->prev->next = NULL;
+            temp->prev = NULL;
+        }
+        delete temp;
+    }
+}
+bool find(int a, int b){
+    return a == b;
+}
+void findAndDel(DoubleLL &ll, int val){
+    //phai it nhat mot phan tu
+    if(!isEmpty(ll)){
+        Node *temp = ll.head;
+        while(!find(temp->data,val) && temp != NULL){
+            //temp->next != NULL thi o den tail no dung mat tieu
+            temp = temp->next;
+        }
+        if(temp!=NULL){
+            //neu val o dau 
+            if(temp->prev==NULL){
+                delFirst(ll);
+            }//neu val o cuoi
+            else if(temp->next == NULL){
+                delLast(ll);
+            }//neu val o chinh giua
+            else{
+                temp->prev->next = temp->next;
+                temp->next->prev = temp->prev;
+                // temp->next = NULL;
+                // temp->prev = NULL; k can thiet lam vi kieu gi cung delete roi
+                delete temp;
+            }
+        }else{
+            cout << "Khong tim thay " << val << endl;
+        }
+        // delete temp; k dc de o day vi da delete temp dau cuoi roi
+    }
 }
 void output(DoubleLL ll) {
 	Node* temp = ll.head;
@@ -73,21 +117,18 @@ void output(DoubleLL ll) {
 	}
 }
 int main(){
-	DoubleLL ll1;
-	init(ll1);
-	addFirst(ll1, 20);
-	addFirst(ll1, 50);
-	addFirst(ll1, 30);
-	addLast(ll1, 999);
-	delFirst(ll1);
-	output(ll1);
+	DoubleLL ls;
+	init(ls);
+	addFirst(ls, 20);
+	addFirst(ls, 50);
+	addFirst(ls, 30);
+	addLast(ls, 999);
+	findAndDel(ls,999);
+	output(ls);
 	system("pause");
 	return 0;
 }
 
-//6. Viết thủ tục xóa phần tử đầu danh sách.
-//7. Viết thủ tục xóa phần tử cuối dang sách.
-//8. Viết thủ tục tìm một phần tử trong danh sách.Nếu tìm thấy, xóa phần tử này.
 //9. Viết thủ tục tìm một phần tử có giá trị bằng với giá trị X hoặc gần nhất và lớn hơn phần tữ
 //nhập vào;
 //10. Thêm một phần tử đứng trước phần tử tìm thấy.
