@@ -1,5 +1,6 @@
 /*
 	Chu y de quy sum (return 0)
+ 	LAM ON RECURSIVE HAY RETURN !!
 	Ham xoa co 3 case
 	Thu tu left right cua ham findRepNode
 */
@@ -93,7 +94,7 @@ Node* search(Node*root, int x) {
 		else
 		{
 			if (x < root->data) {
-				return search(root->left,x);
+				return search(root->left,x); //chu y return, neu khong se tra ve NULL
 			}
 			else {
 				return search(root->right,x);
