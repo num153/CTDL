@@ -1,3 +1,7 @@
+/*
+    CHU Y free() thuong xuyen gap loi 
+    Dieu kien && vs || o case 7
+*/
 #include <iostream>
 using namespace std;
 struct Node {
@@ -43,6 +47,26 @@ void addLast(Doublell& ls, int val) {
         p->prev = ls.tail;
         ls.tail->next = p;
         ls.tail = p;
+    }
+}
+void addAfter(Doublell &ls,int pos,int val){
+    Node*temp=ls.head;
+    while(temp!=NULL&&temp->data!=pos){
+        temp=temp->next;
+    }
+    if(temp!=NULL){
+        if(temp == ls.tail){
+            addLast(ls,val);
+        }else{
+            Node*p=createNode(val);
+            //Uu tien noi nhanh sau truoc nhe bae
+            p->next=temp->next;
+            temp->next->prev = p;
+            temp->next=p;
+            p->prev=temp;
+        }
+    }else{
+        cout << "Couldn't find " << pos << " in list!\n";
     }
 }
 void input(Doublell& ls, int& n) {
@@ -139,6 +163,7 @@ int main() {
         cout << "6. Count nodes in list 2\n";
         cout << "7. Merge 2 lists\n";
         cout << "8. Delete lists\n";
+        cout << "9. Add after\n";
         cout << "0. Exit\n";
         cout << "Your choice: ";
         cin >> choice;
@@ -146,11 +171,13 @@ int main() {
         case 1:
             free(ls1);
             input(ls1, n);
+            output(ls1);
             flag1 = true;
             break;
         case 2:
             free(ls2);
             input(ls2, n);
+            output(ls2);
             flag2 = true;
             break;
         case 3:
@@ -207,8 +234,22 @@ int main() {
                 free(ls2);
                 flag2 = false;
             }
-            if (!isEmpty(ls3)) {
-                free(ls3);
+            // if (!isEmpty(ls3)) {
+            //     free(ls3);
+            // }
+            break;
+        case 9:
+            int pos,val;
+            if(flag1){
+                cout << "Enter value pos: "; cin >> pos;
+                cout << "Enter value to add: ";cin >> val;
+                addAfter(ls1, pos, val);
+            }else if(flag2){
+                cout << "Enter value pos: "; cin >> pos;
+                cout << "Enter value to add: ";cin >> val;
+                addAfter(ls2, pos, val);
+            }else{
+                cout << "Empty list!\n";
             }
             break;
         }
