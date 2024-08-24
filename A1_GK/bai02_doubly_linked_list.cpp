@@ -79,19 +79,34 @@ void countNode(Doublell ls) {
         cout << "List has 0 node" << endl;
     }
 }
-void merge(Doublell& ls1, Doublell& ls2, Doublell& ls3) {
-    Node* temp = ls1.head;
-    while (temp != NULL) {
-        addLast(ls3, temp->data); 
-        temp = temp->next;
+Doublell merge(Doublell& ls1, Doublell& ls2) {
+    if (isEmpty(ls1)) {
+        ls1.head = ls2.head;
+        ls1.tail = ls2.tail;
+        return ls2;
+    } else if (!isEmpty(ls2)) {
+        ls1.tail->next = ls2.head;
+        ls2.head->prev = ls1.tail;
+        ls1.tail = ls2.tail;
     }
+    ls2.head = NULL;  
+    ls2.tail = NULL;  
 
-    temp = ls2.head;
-    while (temp != NULL) {
-        addLast(ls3, temp->data);
-        temp = temp->next;
-    }
+    return ls1;
 }
+// void merge(Doublell& ls1, Doublell& ls2, Doublell& ls3) {
+//     Node* temp = ls1.head;
+//     while (temp != NULL) {
+//         addLast(ls3, temp->data); 
+//         temp = temp->next;
+//     }
+
+//     temp = ls2.head;
+//     while (temp != NULL) {
+//         addLast(ls3, temp->data);
+//         temp = temp->next;
+//     }
+// }
 void free(Doublell& ls) {
     while (ls.head != NULL) {
         Node* temp = ls.head;
@@ -169,9 +184,12 @@ int main() {
             break;
         case 7:
             if (flag1 || flag2) {
-                merge(ls1, ls2, ls3);
-                cout << "Merged list (ls3): ";
-                output(ls3);
+                ls1= merge(ls1, ls2);
+                cout << "Merged list: ";
+                output(ls1);
+                // merge(ls1, ls2, ls3);
+                // cout << "Merged list (ls3): ";
+                // output(ls3);
             }
             else {
                 cout << "Both lists are empty" << endl;
