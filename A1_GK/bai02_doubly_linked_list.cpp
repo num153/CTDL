@@ -79,30 +79,19 @@ void countNode(Doublell ls) {
         cout << "List has 0 node" << endl;
     }
 }
-Doublell merge(Doublell ls1, Doublell ls2) {
-    Doublell ls_merged;
-    init(ls_merged);  // Only initialize the merged list
-
-    if (isEmpty(ls1)) {
-        return ls2;
+void merge(Doublell& ls1, Doublell& ls2, Doublell& ls3) {
+    Node* temp = ls1.head;
+    while (temp != NULL) {
+        addLast(ls3, temp->data); 
+        temp = temp->next;
     }
 
-    if (isEmpty(ls2)) {
-        return ls1;
-    }
-
-    // If neither list is empty
-    if (!(isEmpty(ls1) && isEmpty(ls2))) {
-        ls1.tail->next = ls2.head;
-        ls2.head->prev = ls1.tail;
-        ls_merged.head = ls1.head;
-        ls_merged.tail = ls2.tail;
-
-        return ls_merged;
+    temp = ls2.head;
+    while (temp != NULL) {
+        addLast(ls3, temp->data);
+        temp = temp->next;
     }
 }
-
-
 void free(Doublell& ls) {
     while (ls.head != NULL) {
         Node* temp = ls.head;
@@ -119,6 +108,9 @@ int main() {
     int n;
     int choice;
     bool flag1 = false, flag2 = false;
+    init(ls1);
+    init(ls2);
+    init(ls3);
     do {
         cout << "\n\t======MENU======\t\n";
         cout << "1. Input for list 1\n";
@@ -134,12 +126,12 @@ int main() {
         cin >> choice;
         switch (choice) {
         case 1:
-            init(ls1);
+            free(ls1);
             input(ls1, n);
             flag1 = true;
             break;
         case 2:
-            init(ls2);
+            free(ls2);
             input(ls2, n);
             flag2 = true;
             break;
@@ -177,7 +169,8 @@ int main() {
             break;
         case 7:
             if (flag1 || flag2) {
-                ls3 = merge(ls1, ls2);
+                merge(ls1, ls2, ls3);
+                cout << "Merged list (ls3): ";
                 output(ls3);
             }
             else {
@@ -185,11 +178,17 @@ int main() {
             }
             break;
         case 8:
-            free(ls1);
-            free(ls2);
-            free(ls3);
-            flag1 = false;
-            flag2 = false;
+            if (flag1) {
+                free(ls1);
+                flag1 = false;
+            }
+            if (flag2) {
+                free(ls2);
+                flag2 = false;
+            }
+            if (!isEmpty(ls3)) {
+                free(ls3);
+            }
             break;
         }
     } while (choice != 0);
