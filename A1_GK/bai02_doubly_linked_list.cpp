@@ -115,7 +115,7 @@ Doublell merge(Doublell& ls1, Doublell& ls2) {
         ls2.head->prev = ls1.tail;
         ls1.tail = ls2.tail;
     }
-    //merge xong thi xoa ls2 di
+    //merge xong thi xoa ls2 di (QUAN TRONG !! neu k se bi lap)
     ls2.head = NULL;  
     ls2.tail = NULL;  
 
