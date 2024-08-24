@@ -80,15 +80,18 @@ void countNode(Doublell ls) {
     }
 }
 Doublell merge(Doublell& ls1, Doublell& ls2) {
+    //neu ls1 rong, doi ls1 sang ls2
     if (isEmpty(ls1)) {
         ls1.head = ls2.head;
         ls1.tail = ls2.tail;
-        return ls2;
-    } else if (!isEmpty(ls2)) {
+    } 
+    //neu co day du ls1 va ls2
+    else if (!isEmpty(ls2)) {
         ls1.tail->next = ls2.head;
         ls2.head->prev = ls1.tail;
         ls1.tail = ls2.tail;
     }
+    //merge xong thi xoa ls2 di
     ls2.head = NULL;  
     ls2.tail = NULL;  
 
