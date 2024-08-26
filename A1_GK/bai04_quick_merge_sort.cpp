@@ -115,7 +115,77 @@ Node *quickSortRecur(Node *head, Node *end) {
 void quickSort(Node *&head) {
     head = quickSortRecur(head, getTail(head));
 }
+//============HEAP SORT===========
+// Hàm đếm số lượng nút trong danh sách liên kết
+int getListSize(Node *head) {
+    int count = 0;
+    Node *temp = head;
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
 
+// Hàm lấy nút tại chỉ số cụ thể
+Node *getNodeAt(Node *head, int index) {
+    Node *temp = head;
+    while (temp != NULL && index > 0) {
+        temp = temp->next;
+        index--;
+    }
+    return temp;
+}
+
+// Hàm hoán đổi giá trị giữa hai nút
+void swapNodeValues(Node *a, Node *b) {
+    int temp = a->data;
+    a->data = b->data;
+    b->data = temp;
+}
+
+// Hàm heapify cho danh sách liên kết
+void heapify(Node *head, int size, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    Node *largestNode = getNodeAt(head, largest);
+    Node *leftNode = getNodeAt(head, left);
+    Node *rightNode = getNodeAt(head, right);
+
+    if (left < size && leftNode && leftNode->data > largestNode->data) {
+        largest = left;
+        largestNode = leftNode;
+    }
+
+    if (right < size && rightNode && rightNode->data > largestNode->data) {
+        largest = right;
+        largestNode = rightNode;
+    }
+
+    if (largest != i) {
+        Node *iNode = getNodeAt(head, i);
+        swapNodeValues(iNode, largestNode);
+        heapify(head, size, largest);
+    }
+}
+
+// Hàm heap sort cho danh sách liên kết
+void heapSortList(Node *&head) {
+    int size = getListSize(head);
+
+    for (int i = size / 2 - 1; i >= 0; i--) {
+        heapify(head, size, i);
+    }
+
+    for (int i = size - 1; i >= 0; i--) {
+        Node *iNode = getNodeAt(head, i);
+        Node *rootNode = getNodeAt(head, 0);
+        swapNodeValues(rootNode, iNode);
+        heapify(head, i, 0);
+    }
+}
 int main() {
     Node *ls;
     int x, n;
