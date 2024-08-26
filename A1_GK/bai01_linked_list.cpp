@@ -94,6 +94,35 @@ void selectionSort(Node *&head) {
         swap(i->data, min_node->data);
     }
 }
+void insertionSort(Node *&head) {
+    if (head == NULL || head->next == NULL) {
+        return;
+    }
+
+    Node *sorted = NULL;
+    Node *current = head;
+
+    while (current != NULL) {
+        Node *next = current->next;
+
+        if (sorted == NULL || sorted->data >= current->data) {
+            current->next = sorted;
+            sorted = current;
+        } else {
+            Node *temp = sorted;
+            while (temp->next != NULL && temp->next->data < current->data) {
+                temp = temp->next;
+            }
+            current->next = temp->next;
+            temp->next = current;
+        }
+
+        current = next;
+    }
+
+    head = sorted;
+}
+
 int main() {
     Node *ls;
     int x, n;
@@ -109,6 +138,7 @@ int main() {
         cout << "5. Ascending Sort\n";
         cout << "6. Descending Sort\n";
         cout << "7. Delete list\n";
+        cout << "8. Insertion list\n";
         cout << "0. Exit\n";
         cout << "Your choice: ";
         cin >> choice;
@@ -170,30 +200,40 @@ int main() {
                 cout << "Empty list\n";
             }
             break;
+        case 8:
+            if (flag) {
+                insertionSort(ls);
+                cout << "Sorted!\n";
+                output(ls);
+            } else {
+                cout << "Empty list\n";
+            }
+            break;
+
         }
     } while (choice != 0);
     return 0;
 }
 /*
         Node* reverseList(Node* head) {
-    
+
       // Initialize three pointers: curr, prev and next
     Node *curr = head, *prev = nullptr, *next;
 
       // Traverse all the nodes of Linked List
     while (curr != nullptr) {
-      
+
         // Store next
         next = curr->next;
-      
+
         // Reverse current node's next pointer
         curr->next = prev;
-      
+
         // Move pointers one position ahead
         prev = curr;
         curr = next;
     }
-      
+
       // Return the head of reversed linked list
     return prev;
 }
