@@ -122,6 +122,76 @@ void insertionSort(Node *&head) {
 
     head = sorted;
 }
+Node* binarySearch(Node* head, int target) {
+    if (head == NULL) {
+        return NULL;
+    }
+
+    Node *start = head;
+    Node *end = NULL;
+
+    while (start != end) {
+        // Tìm node ở vị trí giữa
+        Node *slow = start;
+        Node *fast = start->next;
+        while (fast != end) {
+            fast = fast->next;
+            if (fast != end) {
+                slow = slow->next;
+                fast = fast->next;
+            }
+        }
+
+        // slow hiện đang trỏ tới node ở vị trí giữa
+        if (slow->data == target) {
+            return slow;
+        } else if (slow->data < target) {
+            start = slow->next;
+        } else {
+            end = slow;
+        }
+    }
+
+    return NULL; // Không tìm thấy phần tử
+}
+
+int binarySearchPos(Node* head, int target) {
+    if (head == NULL) {
+        return -1;
+    }
+
+    Node *start = head;
+    Node *end = NULL;
+    int startIndex = 0;
+
+    do {
+        // Tìm node ở vị trí giữa
+        Node *slow = start;
+        Node *fast = start->next;
+        int midIndex = startIndex;
+
+        while (fast != end) {
+            fast = fast->next;
+            if (fast != end) {
+                slow = slow->next;
+                fast = fast->next;
+                midIndex++;
+            }
+        }
+
+        // slow hiện đang trỏ tới node ở vị trí giữa
+        if (slow->data == target) {
+            return midIndex;
+        } else if (slow->data < target) {
+            start = slow->next;
+            startIndex = midIndex + 1;
+        } else {
+            end = slow;
+        }
+    } while (end == NULL || end != start);
+
+    return -1; // Không tìm thấy phần tử
+}
 
 int main() {
     Node *ls;
@@ -139,6 +209,7 @@ int main() {
         cout << "6. Descending Sort\n";
         cout << "7. Delete list\n";
         cout << "8. Insertion list\n";
+        cout << "9. Binary Search\n";
         cout << "0. Exit\n";
         cout << "Your choice: ";
         cin >> choice;
@@ -205,6 +276,21 @@ int main() {
                 insertionSort(ls);
                 cout << "Sorted!\n";
                 output(ls);
+            } else {
+                cout << "Empty list\n";
+            }
+            break;
+        case 9:
+            if (flag) {
+                int target;
+                cout << "Enter value to search: ";
+                cin >> target;
+                Node* result = binarySearch(ls, target);
+                if (result != NULL) {
+                    cout << "Value found: " << result->data << endl;
+                } else {
+                    cout << "Value not found in the list.\n";
+                }
             } else {
                 cout << "Empty list\n";
             }
