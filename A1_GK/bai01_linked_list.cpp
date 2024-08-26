@@ -197,4 +197,8 @@ int main() {
       // Return the head of reversed linked list
     return prev;
 }
+    use in main: head = reverseList(head);
+
+    cout << "\nReversed Linked List:";
+    printList(head);
 */
