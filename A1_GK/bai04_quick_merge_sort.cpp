@@ -52,7 +52,7 @@ void output(Node *head) {
     }
     cout << endl;
 }
-//=======QUICK SORT=======
+//=========QUICK SORT=========
 // Hàm lấy nút cuối cùng trong danh sách
 Node *getTail(Node *cur) {
     while (cur != NULL && cur->next != NULL) cur = cur->next;
@@ -115,7 +115,7 @@ Node *quickSortRecur(Node *head, Node *end) {
 void quickSort(Node *&head) {
     head = quickSortRecur(head, getTail(head));
 }
-//============HEAP SORT===========
+//=============HEAP SORT============
 // Hàm đếm số lượng nút trong danh sách liên kết
 int getListSize(Node *head) {
     int count = 0;
@@ -185,6 +185,57 @@ void heapSortList(Node *&head) {
         swapNodeValues(rootNode, iNode);
         heapify(head, i, 0);
     }
+}
+//=========MERGE SORT=========
+Node* merge(Node* a, Node* b) {
+    // BASE CASE
+    if (a == NULL)
+    {
+        return b;
+    }
+    if (b == NULL)
+    {
+        return a;
+    }
+
+    //REC CASE
+    Node* c;
+    if (a->data < b->data)
+    {
+        c = a;
+        c->next = merge(a->next, b);
+    }
+    else
+    {
+        c = b;
+        c->next = merge(a, b->next);
+    }
+    return c;
+}
+Node* midPoint(Node* head) {
+    Node* slow = head;
+    Node* fast = head->next;
+    while (fast != NULL && fast->next != NULL)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+void mergeSort(Node*& head) {
+    // BASE CASE
+    if (head == NULL || head->next == NULL) {
+        return;
+    }
+    // REC CASE
+    Node* mid = midPoint(head);
+    // BREAK AT THE MID
+    Node* l = head;
+    Node* m = mid->next;
+    mid->next = NULL;
+    mergeSort(l);
+    mergeSort(m);
+    head = merge(l, m);
 }
 int main() {
     Node *ls;
