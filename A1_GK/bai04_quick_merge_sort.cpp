@@ -52,7 +52,7 @@ void output(Node *head) {
     }
     cout << endl;
 }
-
+//=======QUICK SORT=======
 // Hàm lấy nút cuối cùng trong danh sách
 Node *getTail(Node *cur) {
     while (cur != NULL && cur->next != NULL) cur = cur->next;
