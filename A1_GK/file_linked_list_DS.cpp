@@ -139,28 +139,132 @@ void sortNameAddress(Node*head,bool funct(string a, string b)){
     }
     
 }
+void countPos(Node*head,const string &s){
+    Node*temp=head;
+    int dem=0;
+    Node*result=NULL;
+    while(temp!=NULL){
+        if(temp->data.pos == s){
+            dem++;
+            addLast(result,temp->data);
+        }
+        temp=temp->next;
+    }
+    cout << dem << endl;
+    output(result);
+}
+void writeFile(Node *head,const string file){
+    ofstream f;
+    f.open(file);
+    if(f.is_open()){
+        Node*temp=head;
+        while(temp!=NULL){
+            f << "Name: " << temp->data.name << endl;
+            f << "Salary: " << temp->data.salary << endl;
+            f << "Position: " << temp->data.pos << endl;
+            f << "Address: " << temp->data.address << endl;
+            f << "--------------" << endl;
+            temp=temp->next;
+        }
+        f.close();
+    }else{
+        cout << "Khong the mo file\n";
+    }
+}
 int main() {
-    Node *head;
+    Node *head,*kq1,*kq2;
     init(head);
-    readFile(head, "nhanvien.txt");
-    output(head);
-    cout << "\t\tDS Nhan vien co ten Nam\n";
-    Node *kq;
-    init(kq);
-    kq = searchName(head, "Nam");
-    output(kq);
-    cout << "\t\tDS Nhan vien co luong tu 50 den 100\n";
-    Node *kq2;
-    kq2 = searchSalary(head, 50, 100);
-    output(kq2);
-    cout << "\n\tSap xep giam dan theo luong: \n";
-    sortSalary(head, des);
-    output(head);
-    cout << "\n\tSap xep giam dan theo que quan (hoac tang dan theo ten): \n";
-    sortNameAddress(head, desString);
-    output(head);
-    free(head);
-    free(kq);
-    free(kq2);
+    init(kq1);
+    init(kq2);
+    int choice;
+    bool co=false;
+    do{
+        cout << "\n\t=======MENU======\t\n";
+        cout << "1. Read input file\n";
+        cout << "2. Print\n";
+        cout << "3. Find name\n";
+        cout << "4. Find salary\n";
+        cout << "5. Sort salary\n";
+        cout << "6. Sort name and address\n";
+        cout << "7. Count position\n";
+        cout << "8. Write output file\n";
+        cout << "9. Delete all\n";
+        cout << "0. Exit\n";
+        cout << "Your choice: "; cin >> choice;
+        switch(choice){
+            case 1:
+                readFile(head, "nhanvien.txt");
+                co=true;
+                break;
+            case 2:
+            if(co){
+                output(head);
+            }else{
+                cout << "Empty list!\n";
+            }
+            break;
+            case 3:
+            if(co){
+                cout << "\nDS co ten Nam\n";
+                kq1=searchName(head, "Nam");
+                output(kq1);
+            }else{
+                cout << "Empty list!\n";
+            }
+            break;
+            case 4:
+            if(co){
+                cout << "\nDS co luong tu 50 den 100\n";
+                kq2=searchSalary(head, 50,100);
+                output(kq2);
+            }else{
+                cout << "Empty list!\n";
+            }
+            break;
+            case 5:
+            if(co){
+                cout <<"\nSap xep luong giam\n";
+                sortSalary(head, des);
+                output(head);
+            }else{
+                cout << "Empty list!\n";
+            }
+            break;
+            case 6:
+            if(co){
+                cout <<"\nSap xep dia chi giam (hoac ten tang)\n";
+                sortNameAddress(head, desString);
+                output(head);
+            }else{
+                cout << "Empty list!\n";
+            }
+            break;
+            case 7:
+            if(co){
+                countPos(head, "Giam doc");
+            }else{
+                cout << "Empty list!\n";
+            }
+            break;
+            case 8:
+            if(co){
+                writeFile(kq1, "nhanvien_ten.txt");
+            }else{
+                cout << "Empty list!\n";
+            }
+            break;
+            case 9:
+            if(co){
+                free(head);
+            }
+            if(!isEmpty(kq1)){
+                free(kq1);
+            }
+            if(!isEmpty(kq2)){
+                free(kq2);
+            }
+            break;
+        }
+    }while(choice!=0);
     return 0;
 }
