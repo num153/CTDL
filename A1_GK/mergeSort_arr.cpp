@@ -57,117 +57,27 @@ void mergeSort(int a[], int left, int right) {
         merge(a, left, mid, right);
     }
 }
-
-Node* merge(Node* a, Node* b) {
-	// BASE CASE
-	if (a == NULL)
-	{
-		return b;
-	}
-	if (b == NULL)
-	{
-		return a;
-	}
-
-	//REC CASE
-	Node* c;
-	if (a->data < b->data)
-	{
-		c = a;
-		c->next = merge(a->next, b);
-	}
-	else
-	{
-		c = b;
-		c->next = merge(a, b->next);
-	}
-	return c;
+//quick sort
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
 }
 
-
-Node* midPoint(Node* head) {
-	Node* slow = head;
-	Node* fast = head->next;
-	while (fast != NULL && fast->next != NULL)
-	{
-		slow = slow->next;
-		fast = fast->next->next;
-	}
-	return slow;
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
 }
-
-
-
-void mergeSort(Node*& head) {
-	// BASE CASE
-	if (head == NULL || head->next == NULL) {
-		return;
-	}
-	// REC CASE
-	Node* mid = midPoint(head);
-	// BREAK AT THE MID
-	Node* l = head;
-	Node* m = mid->next;
-	mid->next = NULL;
-	mergeSort(l);
-	mergeSort(m);
-	head = merge(l, m);
-}
-//--------QUICK SORT----------
-struct Node* last_node(struct Node* head) 
-{ 
-    struct Node* temp = head; 
-    while (temp != NULL && temp->next != NULL) { 
-        temp = temp->next; 
-    } 
-    return temp; 
-} 
-struct Node* partition(struct Node* first, struct Node* last) 
-{ 
-    // Get first node of given linked list 
-    struct Node* pivot = first; 
-    struct Node* front = first; 
-    int temp = 0; 
-    while (front != NULL && front != last) { 
-        if (front->data < last->data) { 
-            pivot = first; 
-  
-            // Swapping  node values 
-            temp = first->data; 
-            first->data = front->data; 
-            front->data = temp; 
-  
-            // Visiting the next node 
-            first = first->next; 
-        } 
-  
-        // Visiting the next node 
-        front = front->next; 
-    } 
-  
-    // Change last node value to current node 
-    temp = first->data; 
-    first->data = last->data; 
-    last->data = temp; 
-    return pivot; 
-} 
-void quick_sort(struct Node* first, struct Node* last) 
-{ 
-    if (first == last) { 
-        return; 
-    } 
-    struct Node* pivot = partition(first, last); 
-  
-    if (pivot != NULL && pivot->next != NULL) { 
-        quick_sort(pivot->next, last); 
-    } 
-  
-    if (pivot != NULL && first != pivot) { 
-        quick_sort(first, pivot); 
-    } 
-} 
-// Function call 
-    quick_sort(head, last_node(head)); 
 int main() {
     int a[9] = {4, 7, 2, 9, 1, 3, 8, 99, 33};
     // int left = 0;
@@ -181,7 +91,7 @@ int main() {
     //     cout << a[i] << " ";
     // }
     cout << "\nSort: \n";
-    heapSort(a, 9);
+    quickSort(a, 0,9);
     for (int i = 0; i <= right; i++) {
         cout << a[i] << " ";
     }
